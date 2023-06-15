@@ -1,0 +1,19 @@
+name: abis_gbi_course_2023
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+  - ome
+dependencies:
+  - python==3.9.*
+  - numpy==1.24.3
+  - pandas==1.5.3
+  - scikit-image==0.19.3
+  - ome::zeroc-ice36-python==3.6.5
+  - pip
+  - pip:
+    - intermine==1.13.0
+    - ipywidgets<8  # required for display. Remove if you are not using notebook
+    - omero-py==5.13.1
+    - matplotlib==3.7.1
+    - jupyter==1.0.0 # if using notebooks. This can be omitted if using the script
