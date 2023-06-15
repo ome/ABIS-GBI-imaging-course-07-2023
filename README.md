@@ -8,8 +8,7 @@ This repository contains materials for the July 2023 imaging course [Image data:
 
 ### Running on cloud resources
 
-* [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ome/ABIS-GBI-imaging-course-07-2023/notebooks/)
-
+* [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ome/ABIS-GBI-imaging-course-07-2023/)
 
 ### Running locally
 
