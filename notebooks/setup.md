@@ -41,7 +41,7 @@ and activate the newly created environment:
 
 Now run the scripts or notebooks as desired in this environment. Go to the additional instructions for notebooks below.
 
-(When finished working with one environment, before creating a new environment, remember to deactivate the current one:)
+When finished working with one environment, before creating a new environment, remember to deactivate the current one:
 
     $ conda deactivate
 
