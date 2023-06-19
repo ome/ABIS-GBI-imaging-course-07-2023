@@ -39,8 +39,9 @@ and activate the newly created environment:
 
     $ conda activate abis_gbi_course_cellpose_2023
 
+Now run the scripts or notebooks as desired in this environment. Go to the additional instructions for notebooks below.
 
-Before creating a new environment, remember to deactivate the current one:
+When finished working with one environment, before creating a new environment, remember to deactivate the current one:
 
     $ conda deactivate
 
