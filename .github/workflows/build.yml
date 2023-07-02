@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        envs: [notebooks/environment_cellpose.yml, notebooks/environment.yml]
+        envs: [notebooks/environment_cellpose.yml, notebooks/environment.yml, notebooks/environment_cellpose_zarr.yml]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
