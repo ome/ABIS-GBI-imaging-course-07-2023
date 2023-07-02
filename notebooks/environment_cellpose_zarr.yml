@@ -1,0 +1,14 @@
+name: abis_gbi_course_cellpose_zarr_2023
+channels:
+  - conda-forge
+dependencies:
+  - python==3.9.*
+  - conda-forge::ipywidgets==8.0.4
+  - pip
+  - pip:
+    - cellpose==2.2.1
+    - matplotlib==3.7.1
+    - ome-zarr==0.7.1
+    - pandas==2.0.1
+    - jupyter==1.0.0 # if using notebooks. This can be omitted if using the script
+    
