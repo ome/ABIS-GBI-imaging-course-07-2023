@@ -13,13 +13,7 @@ if (connected != "true") {
 	exit("Not connected");
 }
 
-setBatchMode(true);
-images = Ext.list("images", "dataset", dataset_id);
-image_ids = split(images, ",");
-
-table_name = "Summary_from_Fiji"; 
-for (i=0; i<image_ids.length; i++) {
-    id = image_ids[i];
+function downloadImageLocally(id) { 
     //Download the file locally. There is a method Ext.getImage(id) but this method does not work yet on all images.
     temp_path = getDir("temp") + "OMERO_download_" + id;
     File.makeDirectory(temp_path);
@@ -28,6 +22,29 @@ for (i=0; i<image_ids.length; i++) {
     for (i=0; i<files.length; i++) {
         run("Bio-Formats Importer", "open=" + files[i] + " autoscale color_mode=Default view=[Standard ImageJ] stack_order=Default");
     }
+    return temp_path;
+}
+
+function deleteLocalImages(path) { 
+    // Delete the images in the directory then delete the directory
+    files = getFileList(temp_path);
+    for (i = 0; i < files.length; i++) {
+        File.delete(temp_path + File.separator + files[i]);
+    }
+    File.delete(temp_path);
+}
+
+setBatchMode(true);
+images = Ext.list("images", "dataset", dataset_id);
+image_ids = split(images, ",");
+
+table_name = "Summary_from_Fiji"; 
+for (i=0; i<image_ids.length; i++) {
+    id = image_ids[i];
+    //Download the file locally. There is a method Ext.getImage(id) but this method does not work yet on all images.
+    temp_path = downloadImageLocally(id);
+    
+    //Analyse the data
     roiManager("reset");
     run("8-bit");
     run("Auto Threshold", "method=MaxEntropy stack");
@@ -44,17 +61,13 @@ for (i=0; i<image_ids.length; i++) {
     roiManager("reset");
     close("Results");
     close();
-    //Delete files in the directory then delete it
-    files = getFileList(temp_path);
-    for (i=0; i<files.length; i++) {
-        File.delete(temp_path + File.separator + files[i]);
-    }
-    File.delete(temp_path);
+    deleteLocalImages(temp_path);
 }
+
 results_file = getDir("temp") + dataset_id + "_merged_results.csv";
 Ext.saveTableAsFile(table_name, results_file, ",");
 file_id = Ext.addFile("Dataset", dataset_id, results_file);
-deleted = File.delete(results_file);
+File.delete(results_file);
 
 setBatchMode(false);
 
