@@ -342,7 +342,10 @@ images.each() { image ->
     IJ.run(imp, "Auto Threshold", "method=MaxEntropy stack")
     IJ.run(imp, "Analyze Particles...", "size=10-Infinity pixel display clear add stack summarize")
     IJ.run("Set Measurements...", "area mean standard modal min centroid center perimeter bounding feret's summarize stack display redirect=None decimal=3")
-
+    // If you wish to run a macro file saved locally
+    // Comment the lines IJ.run above and replace by
+    // IJ.runMacroFile("/path/to/Macrofile")
+    
     rm = RoiManager.getInstance()
     rm.runCommand(imp, "Measure")
     rt = ResultsTable.getResultsTable()
