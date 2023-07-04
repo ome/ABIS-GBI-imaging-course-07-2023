@@ -152,25 +152,6 @@ def save_rois_to_omero(ctx, image_id, imp) {
     roi_list = reader.readImageJROIFromSources(image_id, imp)
     roi_facility = gateway.getFacility(ROIFacility)
     result = roi_facility.saveROIs(ctx, image_id, exp_id, roi_list)
-
-    roivec = new ArrayList()
-    j = result.iterator()
-    while (j.hasNext()) {
-        roidata = j.next()
-        roi_id = roidata.getId()
-
-        i = roidata.getIterator()
-        while (i.hasNext()) {
-            roi = i.next()
-            shape = roi[0]
-            t = shape.getZ()
-            z = shape.getT()
-            c = shape.getC()
-            shape_id = shape.getId()
-            roivec.add([roi_id, shape_id, z, c, t])
-        }
-    }
-    return roivec
 }
 
 
@@ -358,17 +339,17 @@ images.each() { image ->
     
 }
 
-//Create the result file
+// Create the result file
 tmp_dir = Files.createTempDirectory("Fiji_csv")
 path = tmp_dir.resolve("idr0021_merged_results.csv")
 file_path = Files.createFile(path)
 file = new File(file_path.toString())
 
-// create a CSV file and upload it
+// Create a CSV file and upload it
 save_summary_as_csv(file, table_rows, table_columns)
 upload_csv_to_omero(ctx, file, dataset_id)
 
-//delete the local copy of the temporary file and directory
+// Delete the local copy of the temporary file and directory
 dir = new File(tmp_dir.toString())
 entries = dir.listFiles()
 for (i = 0; i < entries.length; i++) {
