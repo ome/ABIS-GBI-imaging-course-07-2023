@@ -2,7 +2,7 @@
 //@ String(label="Password", style='password', persist=false, value="trainer-1") PASSWORD
 //@ String(label="Host", value='wss://workshop.openmicroscopy.org/omero-ws') HOST
 //@ Integer(label="Port", value=443) PORT
-//@ Integer(label="Dataset ID", value=24656) dataset_id
+//@ Integer(label="Dataset ID", value=2920) dataset_id
 
 run("OMERO Extensions");
 

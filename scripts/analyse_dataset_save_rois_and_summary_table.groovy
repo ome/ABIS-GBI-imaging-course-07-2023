@@ -42,7 +42,7 @@
 #@ String(label="Username") USERNAME
 #@ String(label="Password", style='password', persist=false) PASSWORD
 #@ String(label="Host", value='wss://workshop.openmicroscopy.org/omero-ws') HOST
-#@ Integer(label="Dataset ID", value=2331) dataset_id
+#@ Integer(label="Dataset ID", value=2920) dataset_id
 
 import java.util.ArrayList
 import java.io.File
