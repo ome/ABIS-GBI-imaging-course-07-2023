@@ -142,7 +142,7 @@ def save_row(rt, table_rows, image) {
     max_bounding_box = 0.0f
     for (i = 0; i < rt.size(); i++) {
         label = rt.getStringValue("Label", i)
-        if (label.contains(ref)) {
+        if (label != null && label.contains(ref)) {
             w = rt.getStringValue("Width", i)
             h = rt.getStringValue("Height", i)
             area = Float.parseFloat(w) * Float.parseFloat(h)
