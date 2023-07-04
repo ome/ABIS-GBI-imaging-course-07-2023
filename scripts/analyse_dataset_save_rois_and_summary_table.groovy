@@ -262,6 +262,11 @@ table_columns = null
 count = 0
 //Close all windows before starting
 IJ.run("Close All")
+if (images.size() == 0) {
+    gateway.disconnect() //close the connection
+    println "no images to analyze"
+    return
+}
 RoiManager.getRoiManager()
 images.each() { image ->
     // Open the image
