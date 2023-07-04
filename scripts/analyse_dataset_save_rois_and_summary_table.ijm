@@ -50,6 +50,7 @@ for (i = 0; i < image_ids.length; i++) {
     //Analyse the data
     roiManager("reset");
     run("8-bit");
+    //white might be required depending on the version of Fiji
     run("Auto Threshold", "method=MaxEntropy stack");
     run("Analyze Particles...", "size=10-Infinity pixel display clear add stack");
     run("Set Measurements...", "area mean standard modal min centroid center perimeter bounding summarize feret's median stack display redirect=None decimal=3");
