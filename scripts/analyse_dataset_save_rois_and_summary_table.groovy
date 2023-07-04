@@ -245,6 +245,7 @@ def save_row(rt, table_rows, image) {
         table_rows.add(row)
     }
     return headings
+}
 
 def create_table_columns(headings) {
     "Create the table headings from the ImageJ results table"
