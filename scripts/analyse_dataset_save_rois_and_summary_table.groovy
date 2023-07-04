@@ -45,10 +45,7 @@
 #@ Integer(label="Dataset ID", value=2331) dataset_id
 
 import java.util.ArrayList
-import java.lang.StringBuffer
-import java.nio.ByteBuffer
 import java.io.File
-import java.io.FileInputStream
 import java.io.PrintWriter
 
 import java.nio.file.Files
@@ -60,34 +57,14 @@ import omero.gateway.SecurityContext
 import omero.gateway.facility.BrowseFacility
 import omero.gateway.facility.DataManagerFacility
 import omero.gateway.facility.ROIFacility
-import omero.gateway.facility.TablesFacility
 import omero.log.SimpleLogger
-import omero.model.ChecksumAlgorithmI
-import omero.model.FileAnnotationI
-import omero.model.OriginalFileI
-import omero.model.enums.ChecksumAlgorithmSHA1160
-
-import static omero.rtypes.rlong
-import static omero.rtypes.rstring
 
 import omero.gateway.model.DatasetData
-import omero.gateway.model.FileAnnotationData
-import omero.gateway.model.ImageData
-import omero.gateway.model.TableData
-import omero.gateway.model.TableDataColumn
 import omero.model.DatasetI
 
 import org.openmicroscopy.shoola.util.roi.io.ROIReader
 
-import loci.formats.FormatTools
-import loci.formats.ImageTools
-import loci.common.DataTools
-
 import ij.IJ
-import ij.ImagePlus
-import ij.ImageStack
-import ij.process.ByteProcessor
-import ij.process.ShortProcessor
 import ij.plugin.frame.RoiManager
 import ij.measure.ResultsTable
 
@@ -152,23 +129,6 @@ def save_rois_to_omero(ctx, image_id, imp) {
     roi_list = reader.readImageJROIFromSources(image_id, imp)
     roi_facility = gateway.getFacility(ROIFacility)
     result = roi_facility.saveROIs(ctx, image_id, exp_id, roi_list)
-}
-
-
-def save_summary_as_omero_table(ctx, rows, columns, dataset_id) {
-    "Create an OMERO table with the summary result and attach it to the specified dataset"
-    data = new Object[columns.length][rows.size()]
-    for (r = 0; r < rows.size(); r++) {
-        row = rows.get(r)
-        for (i = 0; i < columns.length; i++) {
-            data[i][r] = row.get(i)
-        }
-    }
-    // Create the table
-    table_data = new TableData(columns, data)
-    table_facility = gateway.getFacility(TablesFacility)
-    data_object = new DatasetData(new DatasetI(dataset_id, false))
-    table_facility.addTable(ctx, data_object, "Summary_from_Fiji", table_data)
 }
 
 
