@@ -1,6 +1,6 @@
 /*
  * -----------------------------------------------------------------------------
- *  Copyright (C) 2018-2020 University of Dundee. All rights reserved.
+ *  Copyright (C) 2023 University of Dundee. All rights reserved.
  *
  *
  *  Redistribution and use in source and binary forms, with or without modification, 
