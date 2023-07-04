@@ -174,6 +174,23 @@ def save_rois_to_omero(ctx, image_id, imp) {
 }
 
 
+def save_summary_as_omero_table(ctx, rows, columns, dataset_id) {
+    "Create an OMERO table with the summary result and attach it to the specified dataset"
+    data = new Object[columns.length][rows.size()]
+    for (r = 0; r < rows.size(); r++) {
+        row = rows.get(r)
+        for (i = 0; i < columns.length; i++) {
+            data[i][r] = row.get(i)
+        }
+    }
+    // Create the table
+    table_data = new TableData(columns, data)
+    table_facility = gateway.getFacility(TablesFacility)
+    data_object = new DatasetData(new DatasetI(dataset_id, false))
+    table_facility.addTable(ctx, data_object, "Summary_from_Fiji", table_data)
+}
+
+
 def save_row(rt, table_rows, image) {
     "Create a summary table of the measurements"
     // Remove the rows not corresponding to the specified channel
@@ -224,46 +241,23 @@ def save_row(rt, table_rows, image) {
                 }
             }
         }
-        row.add(image)
+        row.add(image.getId())
         table_rows.add(row)
     }
     return headings
-}
-
-
-def save_summary_as_omero_table(ctx, rows, columns, dataset_id) {
-    "Create an OMERO table with the summary result and attach it to the specified dataset"
-    data = new Object[columns.length][rows.size()]
-    for (r = 0; r < rows.size(); r++) {
-        row = rows.get(r)
-        for (i = 0; i < columns.length; i++) {
-            data[i][r] = row.get(i)
-        }
-    }
-    // Create the table
-    table_data = new TableData(columns, data)
-    table_facility = gateway.getFacility(TablesFacility)
-    data_object = new DatasetData(new DatasetI(dataset_id, false))
-    table_facility.addTable(ctx, data_object, "Summary_from_Fiji", table_data)
-}
-
 
 def create_table_columns(headings) {
     "Create the table headings from the ImageJ results table"
     size = headings.size()
-    table_columns = new TableDataColumn[size+1]
+    table_columns = new String[size+1]
     //populate the headings
     for (h = 0; h < headings.size(); h++) {
         heading = headings[h]
         // OMERO.tables queries don't handle whitespace well
         heading = heading.replace(" ", "_")
-        if (heading.equals("Slice") || heading.equals("Label")) {
-            table_columns[h] = new TableDataColumn(heading, h, String)
-        } else {
-            table_columns[h] = new TableDataColumn(heading, h, Double)
-        }
+        table_columns[h] = heading
     }
-    table_columns[size] = new TableDataColumn("Image", size, ImageData)
+    table_columns[size] = "Image"
     return table_columns
 }
 
@@ -276,7 +270,7 @@ def save_summary_as_csv(file, rows, columns) {
         stream = new PrintWriter(file)
         l = columns.length
         for (i = 0; i < l; i++) {
-            sb.append(columns[i].getName())
+            sb.append(columns[i])
             if (i != (l-1)) {
                 sb.append(", ")
             }
@@ -286,11 +280,7 @@ def save_summary_as_csv(file, rows, columns) {
             size = row.size()
             for (i = 0; i < size; i++) {
                 value = row.get(i)
-                if (value instanceof ImageData) {
-                    sb.append(value.getId())
-                } else {
-                    sb.append(value)
-                }
+                sb.append(value)
                 if (i != (size-1)) {
                     sb.append(", ")
                 }
@@ -345,12 +335,12 @@ images.each() { image ->
     // If you wish to run a macro file saved locally
     // Comment the lines IJ.run above and replace by
     // IJ.runMacroFile("/path/to/Macrofile")
-    
+
     rm = RoiManager.getInstance()
     rm.runCommand(imp, "Measure")
     rt = ResultsTable.getResultsTable()
     // Save the ROIs back to OMERO
-    roivec = save_rois_to_omero(ctx, id, imp)
+    save_rois_to_omero(ctx, id, imp)
     println "creating summary results for image ID " + id
     headings = save_row(rt, table_rows, image)
     if (table_columns == null) {
@@ -384,8 +374,6 @@ for (i = 0; i < entries.length; i++) {
     entries[i].delete()
 }
 dir.delete()
-
-save_summary_as_omero_table(ctx, table_rows, table_columns, dataset_id)
 
 // Close the connection
 gateway.disconnect()
