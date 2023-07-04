@@ -1,4 +1,4 @@
-# ABIS-GBI-imaging-course-07-2023
+# ABiS-GBI-imaging-course-07-2023
 [![Actions Status](https://github.com/ome/ABIS-GBI-imaging-course-07-2023/workflows/build/badge.svg)](https://github.com/ome/ABI-GBI-imaging-course-07-2023/actions)
 
 This repository contains materials for the July 2023 imaging course [Image data: image analysis, data management and reuse](https://globalbioimaging.org/international-training-courses/abis-gbi-2023-course).
