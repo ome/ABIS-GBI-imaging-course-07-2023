@@ -310,3 +310,12 @@ def upload_csv_to_omero(ctx, file, dataset_id) {
 gateway.disconnect()
 println "Done"
 ```
+
+## Let's put it all together
+
+* Open Fiji
+* Select ``File>New>Script...``
+* Copy the content of the  script [analyse_dataset_save_rois_and_summary_table.groovy](./scripts/analyse_dataset_save_rois_and_summary_table.groovy) or select it from the left-hand pane in the script editor.
+* In the script editor, check that the correct progamming is set. For that, select ``Language`` and select ``Groovy``.
+* Click the ``run`` button
+
