@@ -20,6 +20,13 @@ https://omero-guides.readthedocs.io/en/latest/fiji/docs/index.html).
 We first look on how the script is set up. 
 The connection and how the images are read using Bio-Formats are the same. There are other ways to read the images or part of the images e.g. one plane. This is outside the scope of this session. If interested, we recommend to review the scripts available in the omero-guide-fiji GitHub [repository](https://github.com/ome/omero-guide-fiji/tree/master/scripts/groovy).
 
+Before you start:
+
+* First install the omero imageJ plugin if not already installed. See [installation](https://omero-guides.readthedocs.io/en/latest/fiji/docs/installation.html).
+* To do manual analysis, see [manual analysis](https://omero-guides.readthedocs.io/en/latest/fiji/docs/manual_analysis.html).
+* Script the analysis, see [scripting analysis](https://omero-guides.readthedocs.io/en/latest/fiji/docs/threshold_scripting.html). The ``groovy`` script used for this workshop is available under the ``scripts`` folder.
+
+
 ## Import packages
 At the beginning of a script, you need to import the packages that will be required to connect to OMERO, run the images and interact with ImageJ commands.
 
