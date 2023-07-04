@@ -36,10 +36,13 @@ function deleteLocalImages(path) {
 
 setBatchMode(true);
 images = Ext.list("images", "dataset", dataset_id);
+if (images.length == 0) {
+	exit("No images found");
+}
 image_ids = split(images, ",");
 
 table_name = "Summary_from_Fiji"; 
-for (i=0; i<image_ids.length; i++) {
+for (i = 0; i < image_ids.length; i++) {
     id = image_ids[i];
     //Download the file locally. There is a method Ext.getImage(id) but this method does not work yet on all images.
     temp_path = downloadImageLocally(id);
