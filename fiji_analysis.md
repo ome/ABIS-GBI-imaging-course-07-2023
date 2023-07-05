@@ -326,3 +326,17 @@ println "Done"
 * In the script editor, check that the correct progamming is set. For that, select ``Language`` and select ``Groovy``.
 * Click the ``run`` button
 
+
+
+## Use macro language
+
+The script [analyse_dataset_save_rois_and_summary_table.ijm](./scripts/analyse_dataset_save_rois_and_summary_table.ijm) uses the macro language to perform the same step. 
+For the script to work, you will need to install in the Plugins folder of Fiji:
+* https://github.com/GReD-Clermont/omero_macro-extensions/releases/download/1.3.2/omero_macro-extensions-1.3.2.jar
+* https://github.com/GReD-Clermont/simple-omero-client/releases/download/5.14.0/simple-omero-client-5.14.0.jar
+
+Note that the shapes are not correctly linked to the correct channel in simple-omero-client version 5.14.0.
+A [fix](https://github.com/GReD-Clermont/simple-omero-client/pull/65) has been opened.
+ 
+
+
