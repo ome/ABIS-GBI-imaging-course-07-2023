@@ -70,6 +70,7 @@ Collection information required to connect to the OMERO server or IDR.
 
 This method establishes a connection with the OMERO server so we can analyse the images in Fiji.
 
+```
 // Method to connect to OMERO
 def connect_to_omero(host, user, password) {
     "Connect to OMERO"
@@ -83,12 +84,21 @@ def connect_to_omero(host, user, password) {
     gateway.connect(credentials)
     return gateway
 }
-
+```
 // Connect to OMERO
 gateway = connect_to_omero(HOST, USERNAME, PASSWORD)
 
 ## Retrieve images in a dataset
 In the method below, we only retrieve the information about the images e.g. name, identifier, etc. We **do not** load binary data yet
+
+You need to specify the user context i.e. the group
+
+```
+exp = gateway.getLoggedInUser()
+group_id = exp.getGroupId()
+ctx = new SecurityContext(group_id)
+exp_id = exp.getId()
+```
 
 ```
 def get_images(gateway, ctx, dataset_id) {
